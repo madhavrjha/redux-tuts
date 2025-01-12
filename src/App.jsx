@@ -1,11 +1,5 @@
-import Counter from './features/counter/Counter'
-
 const App = () => {
-	return (
-		<main className='App'>
-			<Counter />
-		</main>
-	)
+	return <main className='App'></main>
 }
 
 export default App
