@@ -5,11 +5,13 @@ const initialState = [
 		id: '1',
 		title: 'Learning Redux Toolkit',
 		content: "I've heard good things.",
+		userId: '1',
 	},
 	{
 		id: '2',
 		title: 'Slices...',
 		content: 'The more I say slice, the more I want pizza.',
+		userId: '2',
 	},
 ]
 
@@ -21,9 +23,9 @@ export const postsSlice = createSlice({
 			reducer: (state, action) => {
 				state.push(action.payload)
 			},
-			prepare: (title, content) => {
+			prepare: (title, content, userId) => {
 				return {
-					payload: { id: nanoid(), title, content },
+					payload: { id: nanoid(), title, content, userId },
 				}
 			},
 		},
