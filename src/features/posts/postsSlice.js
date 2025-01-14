@@ -27,12 +27,12 @@ export const postsSlice = createSlice({
 			reducer: (state, action) => {
 				state.posts.push(action.payload)
 			},
-			prepare: (title, content, userId) => {
+			prepare: (title, body, userId) => {
 				return {
 					payload: {
 						id: nanoid(),
 						title,
-						content,
+						body,
 						date: new Date().toISOString(),
 						userId,
 						reactions: {
@@ -63,7 +63,6 @@ export const postsSlice = createSlice({
 
 			const loadedPosts = action.payload.map((post, index) => ({
 				...post,
-				content: post.body,
 				date: sub(new Date(), { minutes: index + 1 }).toISOString(),
 				reactions: {
 					thumbsUp: 0,
