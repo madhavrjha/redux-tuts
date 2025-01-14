@@ -1,11 +1,22 @@
-import { useSelector } from 'react-redux'
-import { selectAllPosts } from './postsSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchPosts, getPostsError, getPostsStatus, selectAllPosts } from './postsSlice'
 import PostAuthor from './PostAuthor'
 import TimeAgo from './TimeAgo'
 import ReactionButtons from './ReactionButtons'
+import { useEffect } from 'react'
 
 const PostsList = () => {
 	const posts = useSelector(selectAllPosts)
+	const postsStatus = useSelector(getPostsStatus)
+	const error = useSelector(getPostsError)
+
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		if (postsStatus === 'idle') {
+			dispatch(fetchPosts())
+		}
+	}, [postsStatus, dispatch])
 
 	// posts is read-only, so post.slice() is used to create a writable copy.
 	const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
