@@ -8,6 +8,13 @@ const initialState = [
 		content: "I've heard good things.",
 		userId: '1',
 		date: sub(new Date(), { minutes: 10 }).toISOString(),
+		reactions: {
+			thumbsUp: 0,
+			wow: 0,
+			heart: 0,
+			rocket: 0,
+			coffee: 0,
+		},
 	},
 	{
 		id: '2',
@@ -15,6 +22,13 @@ const initialState = [
 		content: 'The more I say slice, the more I want pizza.',
 		userId: '2',
 		date: sub(new Date(), { minutes: 5 }).toISOString(),
+		reactions: {
+			thumbsUp: 0,
+			wow: 0,
+			heart: 0,
+			rocket: 0,
+			coffee: 0,
+		},
 	},
 ]
 
@@ -28,15 +42,35 @@ export const postsSlice = createSlice({
 			},
 			prepare: (title, content, userId) => {
 				return {
-					payload: { id: nanoid(), title, content, date: new Date().toISOString(), userId },
+					payload: {
+						id: nanoid(),
+						title,
+						content,
+						date: new Date().toISOString(),
+						userId,
+						reactions: {
+							thumbsUp: 0,
+							wow: 0,
+							heart: 0,
+							rocket: 0,
+							coffee: 0,
+						},
+					},
 				}
 			},
+		},
+		reactionAdded: (state, action) => {
+			const { postId, reaction } = action.payload
+			const existingPost = state.find(p => p.id === postId)
+			if (existingPost) {
+				existingPost.reactions[reaction]++
+			}
 		},
 	},
 })
 
 export const selectAllPosts = state => state.posts
 
-export const { postAdded } = postsSlice.actions
+export const { postAdded, reactionAdded } = postsSlice.actions
 
 export default postsSlice.reducer
