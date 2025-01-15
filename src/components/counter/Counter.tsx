@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import { decrement, increment, incrementBy, reset, selectCount } from '../redux/slices/counter'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { decrement, increment, incrementBy, reset, selectCount } from '../../redux/slices/counter'
 
 const Counter = () => {
 	const count = useAppSelector(selectCount)

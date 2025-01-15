@@ -30,6 +30,14 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
 	return response.data as JPPost[]
 })
 
+export const addNewPost = createAsyncThunk(
+	'posts/addNewPost',
+	async (initialPost: { title: string; body: string; userId: number }) => {
+		const response = await axios.post(POSTS_URL, initialPost)
+		return response.data as JPPost
+	}
+)
+
 const initialState: PostsState = {
 	status: 'idle',
 	posts: [],
@@ -67,6 +75,15 @@ const posts = createSlice({
 		})
 		builder.addCase(fetchPosts.rejected, (state, action) => {
 			state.error = action.error.message
+		})
+		builder.addCase(addNewPost.fulfilled, (state, action) => {
+			state.posts.push({
+				...action.payload,
+				date: new Date().toISOString(),
+				reactions: {
+					like: 0,
+				},
+			})
 		})
 	},
 })
