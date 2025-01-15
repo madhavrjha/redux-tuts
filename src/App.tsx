@@ -1,7 +1,7 @@
-import Counter from './components/Counter'
+import Posts from './components/posts/Posts'
 
 const App = () => {
-	return <Counter />
+	return <Posts />
 }
 
 export default App
