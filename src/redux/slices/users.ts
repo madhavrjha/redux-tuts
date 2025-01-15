@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { RootState } from '../store'
 
 type User = {
 	id: number
@@ -22,10 +23,19 @@ const users = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: builder => {
-		builder.addCase(fetchUsers.fulfilled, (state, action) => {
-			state = action.payload
+		builder.addCase(fetchUsers.fulfilled, (_state, action) => {
+			/* 
+				Always use the return action.payload pattern when you want to replace the entire state
+
+				Redux Toolkit uses immer internally to ensure that the state is updated immutably. 
+				While assigning state = action.payload might look like it's replacing the state,
+				it does not trigger the proper state update.
+			*/
+			return action.payload
 		})
 	},
 })
+
+export const selectAllUsers = (state: RootState) => state.users
 
 export default users.reducer

@@ -16,7 +16,7 @@ const Counter = () => {
 	}
 
 	return (
-		<main className='text-center'>
+		<main className='min-h-screen flex items-center justify-center text-center'>
 			<h1 className='text-4xl'>{count}</h1>
 			<div className='flex gap-3 my-2 justify-center'>
 				<button

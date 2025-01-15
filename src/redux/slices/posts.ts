@@ -10,7 +10,7 @@ type JPPost = {
 	body: string
 }
 
-type Post = JPPost & {
+export type Post = JPPost & {
 	date: string
 	reactions: {
 		like: number
@@ -49,7 +49,7 @@ const posts = createSlice({
 				(post, index) =>
 					({
 						...post,
-						date: sub(new Date(), { days: index }).toISOString(),
+						date: sub(new Date(), { minutes: index }).toISOString(),
 						reactions: {
 							like: 0,
 						},
@@ -64,6 +64,6 @@ const posts = createSlice({
 	},
 })
 
-export const selectAllPosts = (state: RootState) => state.posts.posts
+export const selectAllPosts = (state: RootState) => state.posts
 
 export default posts.reducer
