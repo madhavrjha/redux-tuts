@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { sub } from 'date-fns'
 import { RootState } from '../store'
@@ -38,7 +38,14 @@ const initialState: PostsState = {
 const posts = createSlice({
 	name: 'posts',
 	initialState,
-	reducers: {},
+	reducers: {
+		reactionAdded: (state, action: PayloadAction<number>) => {
+			const post = state.posts.find(p => p.id === action.payload)
+			if (post) {
+				post.reactions.like += 1
+			}
+		},
+	},
 	extraReducers: builder => {
 		builder.addCase(fetchPosts.pending, state => {
 			state.status = 'loading'
@@ -65,5 +72,7 @@ const posts = createSlice({
 })
 
 export const selectAllPosts = (state: RootState) => state.posts
+
+export const { reactionAdded } = posts.actions
 
 export default posts.reducer
