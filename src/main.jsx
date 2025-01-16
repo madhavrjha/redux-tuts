@@ -8,13 +8,18 @@ import { fetchUsers } from './features/users/usersSlice.js'
 import App from './App.jsx'
 
 import './index.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 store.dispatch(fetchUsers())
 
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
 		<Provider store={store}>
-			<App />
+			<BrowserRouter>
+				<Routes>
+					<Route path='/*' element={<App />} />
+				</Routes>
+			</BrowserRouter>
 		</Provider>
 	</StrictMode>
 )
