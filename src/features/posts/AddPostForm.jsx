@@ -2,9 +2,12 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addNewPost } from './postsSlice'
 import { selectAllUsers } from '../users/usersSlice'
+import { useNavigate } from 'react-router-dom'
 
 const AddPostForm = () => {
 	const dispatch = useDispatch()
+
+	const navigate = useNavigate()
 
 	const users = useSelector(selectAllUsers)
 
@@ -30,6 +33,7 @@ const AddPostForm = () => {
 			setTitle('')
 			setContent('')
 			setUserId('')
+			navigate('/')
 		} catch (e) {
 			console.log(e.message)
 		} finally {
