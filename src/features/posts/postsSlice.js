@@ -42,7 +42,7 @@ export const deletePost = createAsyncThunk('posts/deletePost', async initialPost
 	const { id } = initialPost
 	try {
 		const response = await axios.delete(`${POSTS_URL}/${id}`)
-		response.status === 200 ? initialPost : `${response.status}: ${response.statusText}`
+		return response.status == 200 ? initialPost : `${response.status}: ${response.statusText}`
 	} catch (e) {
 		return e.message
 	}
