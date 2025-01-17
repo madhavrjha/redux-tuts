@@ -34,7 +34,9 @@ export const updatePost = createAsyncThunk('posts/updatePost', async initialPost
 		const response = await axios.put(`${POSTS_URL}/${id}`, initialPost)
 		return response.data
 	} catch (err) {
-		return err.message
+		// return err.message
+		console.log(err.message)
+		return initialPost // Jsonplaceholder throws error when updating a new post created by the client
 	}
 })
 
