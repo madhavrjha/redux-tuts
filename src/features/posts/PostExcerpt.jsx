@@ -3,6 +3,7 @@ import PostAuthor from './PostAuthor'
 import TimeAgo from './TimeAgo'
 import ReactionButtons from './ReactionButtons'
 import { Link } from 'react-router-dom'
+import { memo } from 'react'
 
 const PostExcerpt = ({ post }) => {
 	return (
@@ -23,4 +24,4 @@ PostExcerpt.propTypes = {
 	post: PropTypes.object.isRequired,
 }
 
-export default PostExcerpt
+export default memo(PostExcerpt)
